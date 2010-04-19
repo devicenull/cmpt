@@ -23,31 +23,4 @@ public class PTreeNode extends TreeNode {
 		
 		return sb.toString();
 	}
-	/*public String getNewickNotation()
-	{
-
-		String ReturnString = "";
-
-		if(this.hasLeftChild() && this.hasRightChild())
-		{
-			ReturnString = "(" + 
-			ConvertTreeIntoNewickNotation(this.getLeftChild()) +
-			"," +
-			ConvertTreeIntoNewickNotation(this.getRightChild()) +
-			")"
-		} elseif(this.hasLeftChild() && !this.hasRightChild()) {
-			ReturnString = "(" +
-			ConvertTreeIntoNewickNotation(this.getLeftChild()) +
-			",)"
-		} elseif(!this.hasLeftChild() && this.hasRightChild()) {
-			ReturnString = 
-			"(," + ConvertTreeIntoNewickNotation(this.getRightChild()) +
-			")"
-		}
-
-		ReturnString = ReturnString & this.Sequence.toString();
-
-		return ReturnString;
-
-	}*/
 }
