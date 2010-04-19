@@ -1,9 +1,12 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
-public class Fasta {
+public class Fasta implements Iterable<Sequence> {
 	private enum ParseState
 	{
 		BEGIN
@@ -11,8 +14,11 @@ public class Fasta {
 		,DATA
 		,DONE
 	}
+	
+	private List<Sequence> sequences;
 
 	public Fasta(String srcfile) {
+		sequences = new ArrayList<Sequence>();
 		Log.info("Fasta trying to load "+srcfile);
 		try {
 			FileReader f = new FileReader(srcfile);
@@ -60,6 +66,7 @@ public class Fasta {
 					if (curchar == '>' || curchar == ';')
 					{
 						Log.info("Finished reading sequence "+newSeq);
+						sequences.add(newSeq);
 						newSeq = new Sequence();
 						if (curchar == ';')
 						{
@@ -75,6 +82,8 @@ public class Fasta {
 					else if (curchar == -1)
 					{
 						Log.info("Finished reading sequence "+newSeq);
+						sequences.add(newSeq);
+						newSeq = new Sequence();
 						readState = ParseState.DONE;
 						break;
 					}
@@ -91,6 +100,21 @@ public class Fasta {
 		{
 			Log.error("Fasta file not found!");
 		}
+	}
+	
+	public Iterator<Sequence> iterator() {
+		return sequences.iterator();
+	}
+	
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		for (Sequence s:sequences)
+		{
+			sb.append(s.toString());
+			sb.append(",");
+		}
+		return sb.toString();
 	}
 	
 }
