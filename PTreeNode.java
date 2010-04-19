@@ -1,20 +1,17 @@
 
-public class PTreeNode extends TreeNode {
-	private String myDesc = "";
-	
-	public PTreeNode(String description)
+public class PTreeNode extends TreeNode<String> {
+	public PTreeNode(String s)
 	{
-		myDesc = description;
+		setObject(s);
 	}
-	
 	public String toString()
 	{
 		if (getSize() == 0) 
 		{
-			return myDesc;
+			return (String)getObject();
 		}
 		StringBuilder sb = new StringBuilder("(");
-		for (TreeNode n: this)
+		for (TreeNode<String> n: this)
 		{
 			sb.append(n);
 			sb.append(",");
