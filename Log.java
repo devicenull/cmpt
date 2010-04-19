@@ -6,7 +6,7 @@ public class Log {
 	static public void Init(String logfile)
 	{
 		try {
-			SimpleFormatter format = new SimpleFormatter();
+			Formatter format = new PTGFormatter();
 			
 			FileHandler fh = new FileHandler(logfile,true);
 			fh.setFormatter(format);
