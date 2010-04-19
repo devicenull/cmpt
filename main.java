@@ -35,6 +35,15 @@ public class main {
 			tg.generateTree();
 		}
 		
+		PTreeNode root = new PTreeNode("root");
+		PTreeNode a = new PTreeNode("a");
+		PTreeNode b = new PTreeNode("b");
+		a.addChild(b);
+		root.addChild(a);
+		root.addChild(new PTreeNode("c"));
+		
+		System.out.println(root);
+		
 		System.out.println("execution done");
 	}
 
