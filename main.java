@@ -26,7 +26,7 @@ public class main {
 		
 		Fasta curFasta = new Fasta(cfg.getConfig("loadFile"));
 		
-		for (Algorithm a:am.getAlgorithms())
+		for (Algorithm a: am)
 		{
 			TreeGenerator tg = new TreeGenerator();
 			tg.setAlgo(a);
