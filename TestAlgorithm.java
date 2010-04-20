@@ -1,20 +1,23 @@
 
-public class TestAlgorithm implements Algorithm {
-
-	private String myName;
-	
+public class TestAlgorithm extends Algorithm {
+	private int iterations = 10;
 	public TestAlgorithm()
 	{
 		myName = "dynamic algo!";
 	}
-	
-	public TestAlgorithm(String newname) {
-		myName = newname;
-	}
 
-	@Override
-	public String getName() {
-		return myName;
+	public boolean DoFrame()
+	{
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		
+		iterations--;
+		if (iterations > 0)
+		{
+			return true;
+		}
+		return false;
 	}
-
 }
