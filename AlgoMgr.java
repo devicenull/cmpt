@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class AlgoMgr {
+public class AlgoMgr implements Iterable<Algorithm> {
 	ArrayList<Algorithm> loaded = new ArrayList<Algorithm>();
 
 	public void Load(String s) {
@@ -18,10 +19,8 @@ public class AlgoMgr {
 		}
 	}
 
-	public Algorithm[] getAlgorithms() {
-		Algorithm ret[] = new Algorithm[loaded.size()];
-		loaded.toArray(ret);
-		return ret;
+	public Iterator<Algorithm> iterator() {
+		return loaded.iterator();
 	}
 
 }
