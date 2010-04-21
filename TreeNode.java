@@ -2,6 +2,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * Basic tree class.  Can have any number of unique children.
+ * Should never really need changes.
+ */
 abstract class TreeNode<E> implements Iterable<TreeNode<E>> {
 
 	private Set<TreeNode<E>> children;

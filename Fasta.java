@@ -17,6 +17,11 @@ public class Fasta implements Iterable<Sequence> {
 	
 	private List<Sequence> sequences;
 
+	/**
+	 * Load a FASTA file from disk.  Will save all loaded sequences to this instance of the class
+	 * They can later be retrieved by iterating over this instance
+	 * @param srcfile Full path to the FASTA file to load.  File extension doesn't matter
+	 */
 	public Fasta(String srcfile) {
 		sequences = new ArrayList<Sequence>();
 		Log.info("Fasta trying to load "+srcfile);

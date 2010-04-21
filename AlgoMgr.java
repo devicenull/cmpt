@@ -4,6 +4,10 @@ import java.util.Iterator;
 public class AlgoMgr implements Iterable<Algorithm> {
 	ArrayList<Algorithm> loaded = new ArrayList<Algorithm>();
 
+	/**
+	 * Load an argument from it's name.  Name should be the full classname of the algorithm
+	 * @param s Class name of the algorithm to load
+	 */
 	public void Load(String s) {
 		Log.info("Loading algorithm " + s);
 		try {
