@@ -34,31 +34,7 @@ public class main {
 			tg.setStatus(cfg.getConfig("statusFile"));
 			tg.generateTree();
 		}
-		
-		PTreeNode a = new PTreeNode("a");
-		PTreeNode b = new PTreeNode("b");
-		PTreeNode c = new PTreeNode("c");
-		PTreeNode d = new PTreeNode("d");
-		PTreeNode e = new PTreeNode("e");
-		PTreeNode f = new PTreeNode("f");
-		PTreeNode g = new PTreeNode("g");
-		PTreeNode h = new PTreeNode("h");
-		PTreeNode i = new PTreeNode("i");
-		PTreeNode j = new PTreeNode("j");
-
-		g.addChild(i);
-		g.addChild(j);
-		f.addChild(g);
-		f.addChild(h);
-		b.addChild(c);
-		b.addChild(d);
-		a.addChild(b);
-		a.addChild(e);
-		a.addChild(f);
-		
-		System.out.println(a);
-		
-		System.out.println("execution done");
+		Log.info("Execution has finished");
 	}
 
 }
