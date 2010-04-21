@@ -14,6 +14,7 @@ public class AlgoMgr implements Iterable<Algorithm> {
 			Class<?> cAlgo = Class.forName(s);
 			Algorithm algo = (Algorithm) cAlgo.newInstance();
 			loaded.add(algo);
+			Log.info("Algorithm "+s+" has been loaded");
 		} catch (ClassNotFoundException e) {
 			Log.error("Couldn't find algorith class " + s);
 		} catch (IllegalAccessException e) {

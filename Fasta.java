@@ -98,7 +98,7 @@ public class Fasta implements Iterable<Sequence> {
 				}
 				}	
 			} while (readState != ParseState.DONE);
-			
+			Log.info("Fasta file has been loaded");
 			
 		}
 		catch (IOException e)
