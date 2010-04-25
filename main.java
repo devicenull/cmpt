@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,7 +8,9 @@ import pal.alignment.AlignmentReaders;
 import pal.datatype.AminoAcids;
 
 public class main {
-
+	public static final int exitOk = 0;
+	public static final int exitError = -1;
+	
 	public static void main(String[] args) {
 		ConfigMgr cfg = new ConfigMgr(args);
 		
@@ -16,7 +19,7 @@ public class main {
 			|| cfg.getConfig("logFile") == null)
 			{
 				System.out.println("Expected loadFile,saveDirectory,algorithms,statusFile,logFile to be set on command line!");
-				System.exit(-1);
+				System.exit(exitError);
 			}
 		Log.Init(cfg.getConfig("logFile"));
 		Log.info("Logger loaded");
@@ -26,23 +29,37 @@ public class main {
 		Log.info("CONFIG: using algorithms "+cfg.getConfig("algorithms"));
 		Log.info("CONFIG: status file "+cfg.getConfig("statusFile"));
 		
+		File saveDir = new File(cfg.getConfig("saveDirectory"));
+		if (saveDir.exists() && saveDir.isFile())
+		{
+			Log.error("Save directory exists, but is not directory.  aborting");
+			System.exit(exitError);
+		}
+		else if (!saveDir.exists())
+		{
+			Log.info("Save directory didn't exist, creating");
+			saveDir.mkdir();
+		}
+		
 		AlgoMgr am = new AlgoMgr();
 		for (String s: cfg.getConfig("algorithms").split(","))
 		{
 			am.Load(s);
 		}
+		
+		Log.info("Loading FASTA file");
 		Alignment curData = null;
 		try {
 			curData = AlignmentReaders.readFastaSequences(new FileReader(cfg.getConfig("loadFile"))
 				, new AminoAcids());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.error("FASTA file not found!");
+			System.exit(exitError);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.error("IO error while attempting to read FASTA file");
+			System.exit(exitError);
 		}
-		System.out.println(curData);
+		Log.info("FASTA file loaded");
 		
 		for (Algorithm a: am)
 		{
@@ -51,8 +68,10 @@ public class main {
 			tg.setAlignment(curData);
 			tg.setStatus(cfg.getConfig("statusFile"));
 			tg.generateTree();
+			tg.saveToDisk(cfg.getConfig("saveDirectory"));
 		}
 		Log.info("Execution has finished");
+		System.exit(exitOk);
 	}
 
 }

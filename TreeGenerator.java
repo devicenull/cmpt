@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -8,7 +9,6 @@ import pal.alignment.Alignment;
 
 public class TreeGenerator {
 	private Algorithm algo;
-	private String statusName;
 	private Alignment alignData;
 	private PrintWriter statusLog;
 	
@@ -37,11 +37,10 @@ public class TreeGenerator {
 	 */
 	public void setStatus(String s)
 	{
-		statusName = s;
 		try {
 			statusLog = new PrintWriter(new FileOutputStream(s),true);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Log.error("FileNotFound error when attempting to open status log "+s);
 		}
 	}
 	/**
@@ -61,5 +60,25 @@ public class TreeGenerator {
 		}
 		statusLog.printf("%d done\n", (new Date()).getTime());
 		Log.info("Tree generation ends");
+	}
+	
+	/**
+	 * Save the results of this run to disk.  Directory should already exist, and algorithm should have been run
+	 * @param saveDirectory Directory to write the files to.  File will be created with "name of the algorithm.nwk"
+	 */
+	public void saveToDisk(String saveDirectory)
+	{
+		if (algo.getResult() == null) return;
+		
+		String outFile = saveDirectory + File.separator + algo.getName() + ".nwk";
+		Log.info("Writing output of " + algo.getName() + " to " + outFile);
+		PrintWriter out;
+		try {
+			out = new PrintWriter(new FileOutputStream(outFile), true);
+			out.print(algo.getResult());
+			out.close();
+		} catch (FileNotFoundException e) {
+			Log.error("FileNotFoundException thrown when trying to write results of "+algo.getName());
+		}
 	}
 }
