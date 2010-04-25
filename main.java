@@ -1,3 +1,11 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import pal.alignment.Alignment;
+import pal.alignment.AlignmentReaders;
+import pal.datatype.AminoAcids;
+
 public class main {
 
 	public static void main(String[] args) {
@@ -23,14 +31,24 @@ public class main {
 		{
 			am.Load(s);
 		}
-		
-		Fasta curFasta = new Fasta(cfg.getConfig("loadFile"));
+		Alignment curData = null;
+		try {
+			curData = AlignmentReaders.readFastaSequences(new FileReader(cfg.getConfig("loadFile"))
+				, new AminoAcids());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(curData);
 		
 		for (Algorithm a: am)
 		{
 			TreeGenerator tg = new TreeGenerator();
 			tg.setAlgo(a);
-			tg.setFasta(curFasta);
+			tg.setAlignment(curData);
 			tg.setStatus(cfg.getConfig("statusFile"));
 			tg.generateTree();
 		}

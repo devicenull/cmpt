@@ -1,3 +1,5 @@
+import pal.alignment.Alignment;
+
 
 public abstract class Algorithm {
 	protected String myName;
@@ -13,4 +15,6 @@ public abstract class Algorithm {
 	 * @return true if more processing is needed, false otherwise
 	 */
 	public abstract boolean DoFrame();
+	
+	public abstract void setAlignment(Alignment a);
 }

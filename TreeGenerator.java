@@ -3,11 +3,13 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import pal.alignment.Alignment;
+
 
 public class TreeGenerator {
 	private Algorithm algo;
 	private String statusName;
-	private Fasta fastaData;
+	private Alignment alignData;
 	private PrintWriter statusLog;
 	
 	/**
@@ -19,11 +21,11 @@ public class TreeGenerator {
 		algo = a;
 	}
 	/**
-	 * @param f Fasta instance containing Sequences to generate a tree from
+	 * @param f Alignment instance containing Sequences to generate a tree from
 	 */
-	public void setFasta(Fasta f)
+	public void setAlignment(Alignment f)
 	{
-		fastaData = f;
+		alignData = f;
 	}
 	/**
 	 * This will set the file to record status information.  There are three types of status lines:
@@ -47,6 +49,7 @@ public class TreeGenerator {
 	 */
 	public void generateTree()
 	{
+		algo.setAlignment(alignData);
 		Log.info("Tree generation begins");
 		statusLog.printf("%d starting\n", (new Date()).getTime());
 		long iterations = 0;
