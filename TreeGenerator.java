@@ -7,13 +7,24 @@ import java.util.Date;
 import pal.alignment.Alignment;
 
 
+/**
+ * Handles the actual act of generating a tree for a specific algorithm and data.  This class
+ * takes care of writing the status information to disk.  It also provides features for 
+ * saving the generated data to disk.
+ * 
+ * A new instance of this class should be created for each separate Algorithm being used.  Behavior
+ * is undefined if one instance is reused for all of them.
+ * @see Algorithm
+ * @see Alignment
+ */
 public class TreeGenerator {
 	private Algorithm algo;
 	private Alignment alignData;
 	private PrintWriter statusLog;
 	
 	/**
-	 * @param a Algorithm to use for this generation
+	 * Set the Algorithm to be used for this tree generation
+	 * @param a Instance of algorithm to use
 	 */
 	public void setAlgo(Algorithm a)
 	{
@@ -21,7 +32,8 @@ public class TreeGenerator {
 		algo = a;
 	}
 	/**
-	 * @param f Alignment instance containing Sequences to generate a tree from
+	 * Set the Alignment data to be used for this tree generation
+	 * @param f Alignment instance to generate a tree from
 	 */
 	public void setAlignment(Alignment f)
 	{
@@ -33,6 +45,7 @@ public class TreeGenerator {
 	 * 		"timestamp starting" - Tree generation has started
 	 * 		"timestamp iteration n" - The nth iteration of tree generation has completed
 	 * 		"timestamp done" - Tree generation has ended
+	 * A warning will be written to the log file if this file cannot be opened, but execution will continue.
 	 * @param s Full path to the file to record status information in.
 	 */
 	public void setStatus(String s)
@@ -40,31 +53,42 @@ public class TreeGenerator {
 		try {
 			statusLog = new PrintWriter(new FileOutputStream(s),true);
 		} catch (FileNotFoundException e) {
-			Log.error("FileNotFound error when attempting to open status log "+s);
+			Log.warn("FileNotFound error when attempting to open status log "+s);
 		}
 	}
 	/**
-	 * Run the algorithm on the specified data.  Will not return until generation is complete.
+	 * Run the algorithm on the specified data.  The status log will be updated as the algorithm runs.
+	 * This function will not return until tree generation has completed.
 	 */
 	public void generateTree()
 	{
-		algo.setAlignment(alignData);
 		Log.info("Tree generation begins");
-		statusLog.printf("%d starting\n", (new Date()).getTime());
+		algo.setAlignment(alignData);
+		if (statusLog != null)
+		{
+			statusLog.printf("%d starting\n", (new Date()).getTime());
+		}
 		long iterations = 0;
 		while (algo.DoFrame())
 		{
 			Log.info("Tree iteration done!");
 			iterations++;
-			statusLog.printf("%d iteration %d\n", (new Date()).getTime(), iterations);
+			if (statusLog != null)
+			{
+				statusLog.printf("%d iteration %d\n", (new Date()).getTime(), iterations);
+			}
 		}
-		statusLog.printf("%d done\n", (new Date()).getTime());
+		if (statusLog != null)
+		{
+			statusLog.printf("%d done\n", (new Date()).getTime());
+		}
 		Log.info("Tree generation ends");
 	}
 	
 	/**
 	 * Save the results of this run to disk.  Directory should already exist, and algorithm should have been run
-	 * @param saveDirectory Directory to write the files to.  File will be created with "name of the algorithm.nwk"
+	 * Files will be overwritten if they already exist in the specified directory
+	 * @param saveDirectory Full path of directory where files should be saved.  File will be: "name of the algorithm.nwk"
 	 */
 	public void saveToDisk(String saveDirectory)
 	{
