@@ -1,23 +1,24 @@
+package ptg;
+
 import pal.alignment.SitePattern;
 import pal.distance.AlignmentDistanceMatrix;
 import pal.tree.ClusterTree;
 
-
 /**
- * Implementation of the UPGMA algorithm.
+ * Implementation of the Single Linkage algorithm.
  * @see Algorithm
  */
-public class UPGMAAlgorithm extends Algorithm {
-	public UPGMAAlgorithm()
+public class SLAlgorithm extends Algorithm {
+	public SLAlgorithm()
 	{
-		myName = "UPGMA";
+		myName = "SingleLinkage";
 	}
 
 	public boolean DoFrame()
 	{
 		SitePattern sp = new SitePattern(myAlign);
 		AlignmentDistanceMatrix adm = new AlignmentDistanceMatrix(sp);
-		result = new ClusterTree(adm,ClusterTree.UPGMA);
+		result = new ClusterTree(adm,ClusterTree.SINGLE_LINKAGE);
 		return false;
 	}
 }

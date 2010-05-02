@@ -1,3 +1,5 @@
+package ptg;
+
 import java.util.HashMap;
 
 /**

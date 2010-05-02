@@ -1,3 +1,5 @@
+package ptg;
+
 import pal.alignment.SitePattern;
 import pal.distance.AlignmentDistanceMatrix;
 import pal.tree.ClusterTree;

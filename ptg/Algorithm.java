@@ -1,3 +1,5 @@
+package ptg;
+
 import pal.alignment.Alignment;
 import pal.tree.SimpleTree;
 

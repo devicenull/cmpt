@@ -1,22 +1,25 @@
+package ptg;
+
 import pal.alignment.SitePattern;
 import pal.distance.AlignmentDistanceMatrix;
 import pal.tree.ClusterTree;
 
+
 /**
- * Implementation of the Single Linkage algorithm.
+ * Implementation of the WPGMA algorithm.
  * @see Algorithm
  */
-public class SLAlgorithm extends Algorithm {
-	public SLAlgorithm()
+public class WPGMAAlgorithm extends Algorithm {
+	public WPGMAAlgorithm()
 	{
-		myName = "SingleLinkage";
+		myName = "WPGMA";
 	}
 
 	public boolean DoFrame()
 	{
 		SitePattern sp = new SitePattern(myAlign);
 		AlignmentDistanceMatrix adm = new AlignmentDistanceMatrix(sp);
-		result = new ClusterTree(adm,ClusterTree.SINGLE_LINKAGE);
+		result = new ClusterTree(adm,ClusterTree.WPGMA);
 		return false;
 	}
 }

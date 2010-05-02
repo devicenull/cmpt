@@ -1,23 +1,25 @@
+package ptg;
+
 import pal.alignment.SitePattern;
 import pal.distance.AlignmentDistanceMatrix;
 import pal.tree.ClusterTree;
 
 
 /**
- * Implementation of the WPGMA algorithm.
+ * Implementation of the UPGMA algorithm.
  * @see Algorithm
  */
-public class WPGMAAlgorithm extends Algorithm {
-	public WPGMAAlgorithm()
+public class UPGMAAlgorithm extends Algorithm {
+	public UPGMAAlgorithm()
 	{
-		myName = "WPGMA";
+		myName = "UPGMA";
 	}
 
 	public boolean DoFrame()
 	{
 		SitePattern sp = new SitePattern(myAlign);
 		AlignmentDistanceMatrix adm = new AlignmentDistanceMatrix(sp);
-		result = new ClusterTree(adm,ClusterTree.WPGMA);
+		result = new ClusterTree(adm,ClusterTree.UPGMA);
 		return false;
 	}
 }
