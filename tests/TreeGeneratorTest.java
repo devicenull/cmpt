@@ -3,6 +3,7 @@ package tests;
 import java.io.File;
 
 import ptg.CLAlgorithm;
+import ptg.TestAlgorithm;
 import ptg.TreeGenerator;
 
 /**
@@ -70,5 +71,14 @@ public class TreeGeneratorTest extends junit.framework.TestCase
         TreeGenerator treeGene1 = new TreeGenerator();
         treeGene1.setStatus(testPath);
         assertTrue(statusFile.exists());
+    }
+    
+    public void testIterationMethod()
+    {
+    	TreeGenerator treeGene1 = new TreeGenerator();
+    	TestAlgorithm testAlgo = new TestAlgorithm();
+    	treeGene1.setAlgo(testAlgo);
+    	treeGene1.generateTree();
+    	assertEquals(5,testAlgo.iterations);
     }
 }
