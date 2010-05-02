@@ -73,5 +73,16 @@ public class Log {
 	{
 		logger.log(Level.FINE,logline);
 	}
+	
+	/**
+	 * Flush any pending data to disk.  This is usually handled automatically by java.
+	 */
+	static public void flush()
+	{
+		for (Handler h:logger.getHandlers())
+		{
+			h.flush();
+		}
+	}
 
 }
