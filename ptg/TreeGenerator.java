@@ -33,6 +33,16 @@ public class TreeGenerator {
 		Log.info("Selected algorithm "+a.getName());
 		algo = a;
 	}
+	
+	/**
+	 * Retrieve the currently selected algorithm, or null if none has been selected.
+	 * @return Currently selected algorithm, or null
+	 */
+	public Algorithm getAlgo()
+	{
+		return algo;
+	}
+	
 	/**
 	 * Set the Alignment data to be used for this tree generation
 	 * @param f Alignment instance to generate a tree from
@@ -41,6 +51,16 @@ public class TreeGenerator {
 	{
 		alignData = f;
 	}
+	
+	/**
+	 * Retrieve the currently selected alignment data, or null if none has been selected.
+	 * @return Currently set alignment instance, or null
+	 */
+	public Alignment getAlignment()
+	{
+		return alignData;
+	}
+	
 	/**
 	 * This will set the file to record status information.  There are three types of status lines:
 	 * timestamp in all of these is the number of seconds since the unix epoc
