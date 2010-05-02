@@ -34,8 +34,6 @@ public class ConfigMgrTest extends junit.framework.TestCase
         assertEquals("1 2 3 4 5 6 7", configMg1.getConfig("a b c d e f g "));        
     }
     
-
-
 	public void testToLowerCaseTrimBck()
 	{
 	    String[] str = {" A a B b C c D d E e=1a2b3c4d5e "};
