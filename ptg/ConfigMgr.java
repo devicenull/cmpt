@@ -25,7 +25,14 @@ public class ConfigMgr {
 		for (String s: args)
 		{
 			String info[] = s.split("=");
-			config.put(info[0].toLowerCase(),info[1].trim());
+			if (info.length == 2)
+			{
+				config.put(info[0].toLowerCase(),info[1].trim());
+			}
+			else
+			{
+				config.put(info[0].toLowerCase(), "");
+			}
 		}
 	}
 	
