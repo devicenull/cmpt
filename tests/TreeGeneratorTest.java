@@ -1,12 +1,10 @@
 package tests;
 
+import java.io.File;
 
 import pal.alignment.Alignment;
-import pal.alignment.AlignmentReaders;
 import ptg.CLAlgorithm;
-import ptg.SLAlgorithm;
 import ptg.TreeGenerator;
-import ptg.WPGMAAlgorithm;
 
 /**
  *Unit Testing TreeGenerator Class
@@ -40,32 +38,38 @@ import ptg.WPGMAAlgorithm;
  */
 public class TreeGeneratorTest extends junit.framework.TestCase
 {
-   
-    //Test Method for assertFiles to verify the log were omitted due to lack of time
     public void testSet1Algorithm()
     {
         CLAlgorithm cLAlgori1 = new CLAlgorithm();
         TreeGenerator treeGene1 = new TreeGenerator();
         treeGene1.setAlgo(cLAlgori1);
+        assertEquals(cLAlgori1,treeGene1.getAlgo());
+    }
+    
+    public void testSetNulAlgorithm()
+    {
+        TreeGenerator treeGene1 = new TreeGenerator();
+        assertNull(treeGene1.getAlgo()); 	
     }
 
     public void testNullAlignment()
     {
         TreeGenerator treeGene1 = new TreeGenerator();
+        assertNull(treeGene1.getAlignment());
         treeGene1.setAlignment(null);
+        assertNull(treeGene1.getAlignment());
     }
-    
-    //Directory /users/yoanante/documents must exist on test machine else it will be created 
-    //if allowed by the unix based system.
+       
+    // Attempt to create a file at the path set by testPath.
+    // This must be updated if tests are run on a non-windows OS
     public void testCreateStatusFile()
     {
+    	String testPath = "C:\\status.txt";
+    	File statusFile = new File(testPath);
+    	statusFile.delete();
+    	assertFalse(statusFile.exists());
         TreeGenerator treeGene1 = new TreeGenerator();
-        treeGene1.setStatus("/users/yoanante/documents/status.txt");
+        treeGene1.setStatus(testPath);
+        assertTrue(statusFile.exists());
     }
 }
-
-
-
-
-
-
