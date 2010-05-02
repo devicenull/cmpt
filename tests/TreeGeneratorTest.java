@@ -2,7 +2,6 @@ package tests;
 
 import java.io.File;
 
-import pal.alignment.Alignment;
 import ptg.CLAlgorithm;
 import ptg.TreeGenerator;
 
