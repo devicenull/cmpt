@@ -24,7 +24,7 @@ public class ConfigMgr {
 		config = new HashMap<String,String>();
 		for (String s: args)
 		{
-			String info[] = s.split("=");
+			String info[] = s.split("=",2);
 			if (info.length == 2)
 			{
 				config.put(info[0].toLowerCase(),info[1].trim());
