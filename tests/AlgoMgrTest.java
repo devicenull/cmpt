@@ -46,7 +46,7 @@ public class AlgoMgrTest extends junit.framework.TestCase
 	public void testInstantiationExceptionThrow()
 	{
 		AlgoMgr algoMgr1 = new AlgoMgr();
-		assertFalse(algoMgr1.Load("Algorithm"));  
+		assertFalse(algoMgr1.Load("ptg.Algorithm"));  
 	}
 
 	public void testClassNotFoundException()
